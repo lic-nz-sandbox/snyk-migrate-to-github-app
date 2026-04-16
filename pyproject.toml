@@ -1,21 +1,30 @@
-[tool.poetry]
+
+[project]
 name = "snyk-migrate-to-github-app"
 version = "0.1.1"
 description = ""
-authors = ["Troy Havelock <troy.havelock@snyk.io>"]
 readme = "README.md"
-packages = [{include = "snyk_migrate_to_github_app"}]
+authors = [
+  { name = "Troy Havelock", email = "troy.havelock@snyk.io" }
+]
+requires-python = ">=3.11,<4.0"
 
-[tool.poetry.scripts]
+dependencies = [
+  "typer>=0.9.0,<0.10.0",
+  "rich>=13.7.0,<14.0.0",
+  "requests>=2.31.0,<3.0.0",
+  "cryptography < 40.0.0"
+]
+
+[project.scripts]
 snyk-migrate-to-github-app = "snyk_migrate_to_github_app.main:run"
 
-[tool.poetry.dependencies]
-python = "^3.11"
-typer = "^0.9.0"
-rich = "^13.7.0"
-requests = "^2.31.0"
 
+[[tool.uv.index]]
+name="jfrog"
+url = "https://jfrog.lic.co.nz/artifactory/api/pypi/pypi/simple"
+default = true
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+# Ensures uv picks up Zscaler certificate configured on LIC PCs
+native-tls = true
